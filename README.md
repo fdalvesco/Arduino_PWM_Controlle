@@ -22,45 +22,39 @@ Motores DC (corrente contínua) e motores de passo são amplamente empregados em
 ## Esquemático
 ![esquematico](https://github.com/fdalvesco/Arduino_PWM_Controlle/assets/101358513/b667168b-6b06-4547-baa2-b87c368c0d2f)
 
-/Código-fonte
+##Código-fonte
     
-#include <Arduino.h>
-const int button = 4;
-
-int buttonState = LOW;
-int lastButtonState = LOW;
-int qtdeClick = 0;
-void setup() {
-  pinMode(button, INPUT_PULLUP);
-}
-void loop() {
-  buttonState = digitalRead(button);
-  if(lastButtonState == LOW && buttonState == HIGH){
-    qtdeClick++;
-    if(qtdeClick == 0) {
-      analogWrite(9, 255);
-    } else if (qtdeClick == 1) {
-      analogWrite(9, 191);
-    } else if (qtdeClick == 2) {
-      analogWrite(9, 127);
-    } else if(qtdeClick == 3) {
-      analogWrite(9, 64);
-    } else if(qtdeClick == 4) {
-      analogWrite(9, 0);
-    } else if (qtdeClick == 5){
-      analogWrite(9, 255);
-      qtdeClick = 0;
+    #include <Arduino.h>
+    const int button = 4;
+    
+    int buttonState = LOW;
+    int lastButtonState = LOW;
+    int qtdeClick = 0;
+    void setup() {
+      pinMode(button, INPUT_PULLUP);
     }
-  }
-  lastButtonState = buttonState;
-}
+    void loop() {
+      buttonState = digitalRead(button);
+      if(lastButtonState == LOW && buttonState == HIGH){
+        qtdeClick++;
+        if(qtdeClick == 0) {
+          analogWrite(9, 255);
+        } else if (qtdeClick == 1) {
+          analogWrite(9, 191);
+        } else if (qtdeClick == 2) {
+          analogWrite(9, 127);
+        } else if(qtdeClick == 3) {
+          analogWrite(9, 64);
+        } else if(qtdeClick == 4) {
+          analogWrite(9, 0);
+        } else if (qtdeClick == 5){
+          analogWrite(9, 255);
+          qtdeClick = 0;
+        }
+      }
+      lastButtonState = buttonState;
+    }
 
 ## Funcionamento do projeto
-Este projeto usa um botão para ajustar a velocidade de um motor. Cada vez que o botão é pressionado, a velocidade do motor aumenta em 25%. Quando atinge 100%, a velocidade é resetada para 0%.
-
-O código implementa o conceito de debounce para garantir que apenas uma pressão de botão seja registrada, evitando leituras incorretas causadas por oscilações elétricas. Isso é crucial para manter um controle preciso da velocidade do motor.
-
-Ao pressionar o botão, o Arduino lê o estado atual e o compara com o estado anterior após o período de debounce. Se houver uma mudança no estado do botão e o tempo de debounce tiver expirado, o Arduino incrementa a velocidade do motor em 25%. Quando a velocidade chega a 100%, ela é redefinida para 0%, reiniciando o ciclo.
-
-Este projeto ilustra um exemplo simples de controle de motor utilizando PWM e um botão com Arduino.
+Projeto tem o intuito de definir a frequência do motor com base no botão sendo apertado e alterando os valores da frequência e seus usos, onde temos um oscilometro para medir as oscilações entre frequência e assim modificar as velocidades do motor.
 
