@@ -1,18 +1,31 @@
+
 #include <Arduino.h>
+const int button = 4;
 
-int clickTimes=0; //Definição de variável de controle de estado
-const int button = 2; // Inserção do pino do botão
-int estado[5] = {0,64,127,191,255}; // Definição dos valores de estado
-
+int buttonState = LOW;
+int lastButtonState = LOW;
+int qtdeClick = 0;
 void setup() {
-  pinMode(button,INPUT); // Setando o pin mode como INPUT
+  pinMode(button, INPUT_PULLUP);
 }
 void loop() {
-  if(digitalRead(button) == HIGH){
-    analogWrite(9, estado[clickTimes]); //Define o estado para o motor
-    clickTimes++; //Define o próximo estado
+  buttonState = digitalRead(button);
+  if(lastButtonState == LOW && buttonState == HIGH){
+    qtdeClick++;
+    if(qtdeClick == 0) {
+      analogWrite(9, 255);
+    } else if (qtdeClick == 1) {
+      analogWrite(9, 191);
+    } else if (qtdeClick == 2) {
+      analogWrite(9, 127);
+    } else if(qtdeClick == 3) {
+      analogWrite(9, 64);
+    } else if(qtdeClick == 4) {
+      analogWrite(9, 0);
+    } else if (qtdeClick == 5){
+      analogWrite(9, 255);
+      qtdeClick = 0;
+    }
   }
-  if(clickTimes == 5){
-    clickTimes = 0; // Reseta os estados
-  }
+  lastButtonState = buttonState;
 }
