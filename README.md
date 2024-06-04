@@ -22,7 +22,7 @@ Motores DC (corrente contínua) e motores de passo são amplamente empregados em
 ## Esquemático
 ![esquematico](https://github.com/fdalvesco/Arduino_PWM_Controlle/assets/101358513/b667168b-6b06-4547-baa2-b87c368c0d2f)
 
-## Código-fonte
+/Código-fonte
     
 #include <Arduino.h>
 const int button = 4;
